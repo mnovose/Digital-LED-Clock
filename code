@@ -1,0 +1,12 @@
+#define STRIP_CONTROL_PIN  9  // The GPIO pin connected to the transistor
+
+void setup() {
+  pinMode(STRIP_CONTROL_PIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(STRIP_CONTROL_PIN, HIGH);  // Turn LED strip ON
+  delay(1000);  // Stay on for 1 second
+  digitalWrite(STRIP_CONTROL_PIN, LOW);   // Turn LED strip OFF
+  delay(1000);  // Stay off for 1 second
+}
