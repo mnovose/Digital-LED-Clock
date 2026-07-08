@@ -1,12 +1,460 @@
-#define STRIP_CONTROL_PIN  9  // The GPIO pin connected to the transistor
+#define PIN_SCLK_ONES_MIN  13
+#define PIN_OUTCLK_ONES_MIN  14
+#define PIN_SER_ONES_MIN  16
+
+#define PIN_SCLK_TENS_MIN  17
+#define PIN_OUTCLK_TENS_MIN  21
+#define PIN_SER_TENS_MIN  22
+
+#define PIN_SCLK_ONES_HOUR  34
+#define PIN_OUTCLK_ONES_HOUR  35
+#define PIN_SER_ONES_HOUR  36
+
+#define PIN_SCLK_TENS_HOUR  37
+#define PIN_OUTCLK_TENS_HOUR  38
+#define PIN_SER_TENS_HOUR  39
+
+#define BUTTON  0
+
+
+
 
 void setup() {
-  pinMode(STRIP_CONTROL_PIN, OUTPUT);
+  Serial.begin(115200);  // Start serial communication 
+
+  pinMode(PIN_SCLK_ONES_MIN, OUTPUT);
+  pinMode(PIN_OUTCLK_ONES_MIN, OUTPUT);
+  pinMode(PIN_SER_ONES_MIN, OUTPUT);
+
+  pinMode(PIN_SCLK_TENS_MIN, OUTPUT);
+  pinMode(PIN_OUTCLK_TENS_MIN, OUTPUT);
+  pinMode(PIN_SER_TENS_MIN, OUTPUT);
+
+  pinMode(PIN_SCLK_ONES_HOUR, OUTPUT);
+  pinMode(PIN_OUTCLK_ONES_HOUR, OUTPUT);
+  pinMode(PIN_SER_ONES_HOUR, OUTPUT);
+
+  pinMode(PIN_SCLK_TENS_HOUR, OUTPUT);
+  pinMode(PIN_OUTCLK_TENS_HOUR, OUTPUT);
+  pinMode(PIN_SER_TENS_HOUR, OUTPUT);
+
+  pinMode(BUTTON, INPUT_PULLUP);
 }
 
-void loop() {
-  digitalWrite(STRIP_CONTROL_PIN, HIGH);  // Turn LED strip ON
-  delay(1000);  // Stay on for 1 second
-  digitalWrite(STRIP_CONTROL_PIN, LOW);   // Turn LED strip OFF
-  delay(1000);  // Stay off for 1 second
+//---------------------------------------------------------------------------------------------------------
+
+void loop() { 
+  if (digitalRead(BUTTON) == LOW)
+  {
+    while(true)
+    {
+      display_blank(PIN_SCLK_TENS_HOUR, PIN_OUTCLK_TENS_HOUR, PIN_SER_TENS_HOUR); //tens place for the hour
+      //diplay 1:00
+      display_1(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+      //diplay 2:00
+      display_2(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+      //diplay 3:00
+      display_3(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+      //diplay 4:00
+      display_4(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+      //diplay 5:00
+      display_5(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+      //diplay 6:00
+      display_6(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+      //diplay 7:00
+      display_7(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+      //diplay 8:00
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+      //diplay 9:00
+      display_9(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+      //diplay 10:00
+      display_1(PIN_SCLK_TENS_HOUR, PIN_OUTCLK_TENS_HOUR, PIN_SER_TENS_HOUR); //tens place for the hour
+      display_blank(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+      //diplay 11:00
+      display_1(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+
+        //diplay 12:00
+      display_2(PIN_SCLK_ONES_HOUR,PIN_OUTCLK_ONES_HOUR,PIN_SER_ONES_HOUR); //ones place for the hour
+      count_1hour(PIN_SCLK_ONES_MIN, PIN_OUTCLK_ONES_MIN, PIN_SER_ONES_MIN, PIN_SCLK_TENS_MIN, PIN_OUTCLK_TENS_MIN, PIN_SER_TENS_MIN);
+    }
+  }
+}
+
+//------COUNT 1 HOUR---------------------------------------------------------------------------------------------------
+
+void count_1hour(int SCLK_ONES_MIN, int OUTCLK_ONES_MIN, int SER_ONES_MIN, int SCLK_TENS_MIN, int OUTCLK_TENS_MIN, int SER_TENS_MIN)
+{
+  // #:00
+  display_0(SCLK_TENS_MIN, OUTCLK_TENS_MIN, SER_TENS_MIN); //tens place for the min
+  count_0_9(SCLK_ONES_MIN, OUTCLK_ONES_MIN, SER_ONES_MIN); //ones place for the min
+
+  // #:10
+  display_1(SCLK_TENS_MIN, OUTCLK_TENS_MIN, SER_TENS_MIN); //tens place for the min
+  count_0_9(SCLK_ONES_MIN, OUTCLK_ONES_MIN, SER_ONES_MIN); //ones place for the min
+
+  // #:20
+  display_2(SCLK_TENS_MIN, OUTCLK_TENS_MIN, SER_TENS_MIN); //tens place for the min
+  count_0_9(SCLK_ONES_MIN, OUTCLK_ONES_MIN, SER_ONES_MIN); //ones place for the min
+
+  // #:30
+  display_3(SCLK_TENS_MIN, OUTCLK_TENS_MIN, SER_TENS_MIN); //tens place for the min
+  count_0_9(SCLK_ONES_MIN, OUTCLK_ONES_MIN, SER_ONES_MIN); //ones place for the min
+
+  // #:40
+  display_4(SCLK_TENS_MIN, OUTCLK_TENS_MIN, SER_TENS_MIN); //tens place for the min
+  count_0_9(SCLK_ONES_MIN, OUTCLK_ONES_MIN, SER_ONES_MIN); //ones place for the min
+
+  // #:50
+  display_5(SCLK_TENS_MIN, OUTCLK_TENS_MIN, SER_TENS_MIN); //tens place for the min
+  count_0_9(SCLK_ONES_MIN, OUTCLK_ONES_MIN, SER_ONES_MIN); //ones place for the min
+
+  // #:60
+  display_6(SCLK_TENS_MIN, OUTCLK_TENS_MIN, SER_TENS_MIN); //tens place for the min
+  count_0_9(SCLK_ONES_MIN, OUTCLK_ONES_MIN, SER_ONES_MIN); //ones place for the min
+}
+
+//-----COUNT 0-9 ----------------------------------------------------------------------------------------------------
+
+void count_0_9(int SCLK, int OUTCLK, int SER)
+{
+  display_0(SCLK, OUTCLK, SER);
+  delay(1000);
+  display_1(SCLK, OUTCLK, SER);
+  delay(1000);
+  display_2(SCLK, OUTCLK, SER);
+  delay(1000);
+  display_3(SCLK, OUTCLK, SER);
+  delay(1000);
+  display_4(SCLK, OUTCLK, SER);
+  delay(1000);
+  display_5(SCLK, OUTCLK, SER);
+  delay(1000);
+  display_6(SCLK, OUTCLK, SER);
+  delay(1000);
+  display_7(SCLK, OUTCLK, SER);
+  delay(1000);
+  display_8(SCLK, OUTCLK, SER);
+  delay(1000);
+  display_9(SCLK, OUTCLK, SER);
+  delay(1000);
+}
+
+void display_blank(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  //set segments G - A LOW
+  for (int i = 0; i < 7; i++)
+  {
+    digitalWrite(SER, LOW);
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  digitalWrite(OUTCLK, HIGH);
+}
+
+//-----ZERO----------------------------------------------------------------------------------------------------
+
+void display_0(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  // G set LOW (i = 0)
+  // A,B,C,D,E,F set HIGH (i = 1-6)
+  for (int i = 0; i < 7; i++)
+  {
+    if (i == 0) 
+    {
+      digitalWrite(SER, LOW); //set G LOW
+    }
+    else 
+    {
+      digitalWrite(SER, HIGH);  // set the rest HIGH
+    }
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  Serial.println("Display 0!");
+  digitalWrite(OUTCLK, HIGH);
+}
+
+//-----ONE----------------------------------------------------------------------------------------------------
+
+void display_1(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  // G,F,E,D,A set LOW (i = 0 - 3, 6)
+  //B and C set HIGH (i = 4,5)
+  for (int i = 0; i < 7; i++)
+  {
+    if (i < 4 || i == 6) 
+    {
+      digitalWrite(SER, LOW); //set G,F,E,D,A LOW
+    }
+    else 
+    {
+      digitalWrite(SER, HIGH);  // set the rest HIGH
+    }
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  Serial.println("Display 1!");
+  digitalWrite(OUTCLK, HIGH);
+}
+
+//------TWO---------------------------------------------------------------------------------------------------
+
+void display_2(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  // F,C set LOW (i = 1,5)
+  //A,B,D,E,G set HIGH (i = 0,2,3,5,6)
+  for (int i = 0; i < 7; i++)
+  {
+    if (i == 1 || i == 5) 
+    {
+      digitalWrite(SER, LOW); //set F,C LOW
+    }
+    else 
+    {
+      digitalWrite(SER, HIGH);  // set the rest HIGH
+    }
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  Serial.println("Display 2!");
+  digitalWrite(OUTCLK, HIGH);
+}
+
+//------THREE---------------------------------------------------------------------------------------------------
+
+void display_3(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  // F,E set LOW (i = 1,2)
+  //A,B,C,D,G set HIGH (i = 0,3,4,5,6)
+  for (int i = 0; i < 7; i++)
+  {
+    if (i == 1 || i == 2) 
+    {
+      digitalWrite(SER, LOW); //set F,E LOW
+    }
+    else 
+    {
+      digitalWrite(SER, HIGH);  // set the rest HIGH
+    }
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  Serial.println("Display 3!");
+  digitalWrite(OUTCLK, HIGH);
+}
+
+//------FOUR---------------------------------------------------------------------------------------------------
+
+void display_4(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  // A,D,E set LOW (i = 2,3,6)
+  //A,B,F,G set HIGH (i = 0,3,4,5,6)
+  for (int i = 0; i < 7; i++)
+  {
+    if (i == 2 || i == 3 || i == 6) 
+    {
+      digitalWrite(SER, LOW); //set A,D,E LOW
+    }
+    else 
+    {
+      digitalWrite(SER, HIGH);  // set the rest HIGH
+    }
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  Serial.println("Display 4!");
+  digitalWrite(OUTCLK, HIGH);
+}
+
+//------FIVE---------------------------------------------------------------------------------------------------
+
+void display_5(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  // B,E set LOW (i = 2,5)
+  //A,C,D,F,G set HIGH
+  for (int i = 0; i < 7; i++)
+  {
+    if (i == 2 || i == 5) 
+    {
+      digitalWrite(SER, LOW); //set B,E LOW
+    }
+    else 
+    {
+      digitalWrite(SER, HIGH);  // set the rest HIGH
+    }
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  Serial.println("Display 5!");
+  digitalWrite(OUTCLK, HIGH);
+}
+
+//------SIX---------------------------------------------------------------------------------------------------
+
+void display_6(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  // A,B set LOW (i = 5,6)
+  //C,D,E,F,G set HIGH
+  for (int i = 0; i < 7; i++)
+  {
+    if (i == 5 || i == 6) 
+    {
+      digitalWrite(SER, LOW); //set A,B LOW
+    }
+    else 
+    {
+      digitalWrite(SER, HIGH);  // set the rest HIGH
+    }
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  Serial.println("Display 6!");
+  digitalWrite(OUTCLK, HIGH);
+}
+
+//------SEVEN---------------------------------------------------------------------------------------------------
+
+void display_7(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  // D,E,F,G set LOW (i <5)
+  //A,B,C set HIGH
+  for (int i = 0; i < 7; i++)
+  {
+    if (i < 5) 
+    {
+      digitalWrite(SER, LOW); //set D,E,F,G LOW
+    }
+    else 
+    {
+      digitalWrite(SER, HIGH);  // set the rest HIGH
+    }
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  Serial.println("Display 7!");
+  digitalWrite(OUTCLK, HIGH);
+}
+
+//------EIGHT---------------------------------------------------------------------------------------------------
+
+void display_8(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  //set segments G - A HIGH
+  for (int i = 0; i < 7; i++)
+  {
+    digitalWrite(SER, HIGH);
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  Serial.println("Display 8!");
+  digitalWrite(OUTCLK, HIGH);
+}
+
+//------NINE---------------------------------------------------------------------------------------------------
+
+void display_9(int SCLK, int OUTCLK, int SER)
+{
+  //ensure clocks are initially set low
+  digitalWrite(OUTCLK, LOW); 
+  digitalWrite(SCLK, LOW);
+
+  //E,D set LOW (i = 3,4)
+  // A,B,C,F,G set HIGH
+  for (int i = 0; i < 7; i++)
+  {
+    if (i == 3 || i == 4) 
+    {
+      digitalWrite(SER, LOW); //set E,D LOW
+    }
+    else 
+    {
+      digitalWrite(SER, HIGH);  // set the rest HIGH
+    }
+    digitalWrite(SCLK, HIGH);
+    digitalWrite(SCLK, LOW);
+  }
+
+  //send out the output
+  Serial.println("Display 9!");
+  digitalWrite(OUTCLK, HIGH);
 }
